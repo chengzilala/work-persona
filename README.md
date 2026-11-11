@@ -19,6 +19,7 @@
 - **纸面盲测材料已就绪**（v0.20，v0.23 重新生成）：`test/blind-test/` 下 `form.pdf`（7 页 A4）+ `form.html`（打印卷源文件）+ `answer-key.csv`（计分钥匙）+ `guide.md`（流程与话术）+ `record.csv`（回收表）+ `score-sheet.js`（计分器），由 `node test/blind-test/build-form.js` 从题库生成；**等 3~5 人实答**。
 - **云同步已上线**（v0.22）：`server/wp-sync.js`（零依赖 Node + SQLite，systemd 常驻）+ `web/assets/js/sync.js`；**登录后自动同步**（每台设备首次登录即拉取合并，主动关闭后不再自动开启），数据页可立即同步 / 关闭 / 删除云端档案，首页品牌下方显示同步状态，冲突按 `updatedAt` 与历史 `id` 合并；线上 `https://persona.chesterlee.cn/wp-sync/*` 由 Caddy 反代到本机 8944。
 - 后续（未做）：S5c 跨设备验收（手机 + 电脑交叉验证历史 / 草稿 / 设置）、按盲测结果校准题库与计分。
+- **代码仓库**（v0.23 首次入库）：[GitHub](https://github.com/chengzilala/work-persona) ｜ [Gitee](https://gitee.com/chengzila/work-persona)，双远程各推一份。
 - 需求见 [plan/RPD_需求文档.md](plan/RPD_需求文档.md)，可行性见 [Idea/可行性分析_职业人格测评复刻.md](../Idea/可行性分析_职业人格测评复刻.md)。
 
 ## 目录结构

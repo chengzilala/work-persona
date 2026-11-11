@@ -68,3 +68,14 @@
 - **产出物**：`web/assets/js/{questions.js,score.js,content.js,app.js}`、`web/index.html`、`test/blind-test/{build-form.js,score-sheet.js,form.html,answer-key.csv,form.pdf,guide.md}`、`plan/RPD_需求文档.md`（v0.23 + 4 条决策）、`README.md`、`usage/Running.md`。
 - **验证**：`node --check` 六个脚本全绿；`build-form.js` 输出「自然 24 / 工作 12 / 压力 9 题」；`form.pdf` 1545339 字节 / 7 页；5 个子代理只答压力段，得分 D89 / C89 / S67+I33 / I89 / S78+I11+C11——旧版 5 人里 4 人满分，新版最高 89、1/5 换主维（05 吴琴 C→S，正是原先被判 C 的稳健型案例）。
 - **待办与风险**：① 真人盲测仍为 0，旧 6 题口径的 AI 模拟数据已改名为 `record-ai-sim-v022.csv`，引用时勿与 v0.23 新分数混用；② 10 道「四个都不像」的题未动，等真人回收；③ `style.css` 本地与线上已核对一致（sha256 相同），此前的 logo 尺寸差异已不存在。
+
+---
+
+## 2026-11-11 会话条目：首次入库并双推（v0.23）
+
+- **目标**：清掉三项技术债（style.css 差异 / 旧口径 AI 模拟数据 / 无版本库），并把 v0.23 归档到 GitHub 与 Gitee。
+- **已做**：① 核对 `style.css` 线上与本地 sha256 一致（`e1fe744f…6289b`），差异已不存在，无需取舍；② `record-ai-sim.csv` → `record-ai-sim-v022.csv`，guide / RPD / session_log 三处引用同步标注「旧口径：压力 6 题」；③ 项目此前无 `.git`，`git init -b main` 后按目录精确 `git add`（38 个文件 / 8756 行）提交 `e67322f`，打附注 tag `v0.23`；④ 建公开仓库 `chengzilala/work-persona` 与 `chengzila/work-persona`，origin 配两条 push 地址，`main` 与 `v0.23` 各推一份；⑤ Gitee 空仓库默认私有，推完用 PATCH 改公开（现匿名访问 200）。
+- **结论与决定**：`web/brand*.html` 等品牌稿一并入库（无敏感信息，暂不单独排除）；`.trae/`、`inbox/`、`*.pem`、`.DS_Store` 继续忽略。
+- **产出物**：`.git/`（首次）、`README.md`（补仓库地址）、`test/blind-test/record-ai-sim-v022.csv`、`test/blind-test/guide.md`、`plan/RPD_需求文档.md`、`dev/session_log.md`。
+- **验证**：GitHub 仓库匿名 200、tag `v0.23` 存在；Gitee 匿名 200、`private:false`；`git remote -v` 显示 1 条 fetch + 2 条 push。
+- **待办与风险**：① 双推靠本机钥匙串凭据，换机器需重配；② `screenshots/` 空目录未入库（git 不跟踪空目录），后续放图再补。
