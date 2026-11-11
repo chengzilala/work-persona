@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>品牌预览 · 三面</title>
+<link rel="icon" type="image/svg+xml" href="./assets/img/logo-mark.svg">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1f2329;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2f6fed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  .wp-wrap { max-width: 860px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; font-size: 20px; }
+  .wp-lead { margin: 0 0 28px; color: var(--muted); font-size: 13px; }
+  h2 { margin: 36px 0 12px; font-size: 15px; letter-spacing: .5px; }
+  h2::before { content: ""; display: inline-block; width: 3px; height: 14px; margin-right: 8px; border-radius: 2px; background: var(--accent); vertical-align: -2px; }
+  .wp-card { padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+  .wp-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+  .wp-cell { flex: 1 1 200px; min-width: 180px; text-align: center; }
+  .wp-cell p { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+  .wp-dark { background: #171a1f; border-color: #171a1f; }
+  .wp-dark .wp-cell p { color: #9ca3af; }
+  .wp-lockup { display: flex; align-items: center; gap: 14px; }
+  .wp-lockup img { width: 56px; height: 56px; }
+  .wp-lockup strong { display: block; font-size: 26px; font-weight: 600; letter-spacing: 2px; }
+  .wp-lockup span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; letter-spacing: 1.6px; }
+  .wp-sizes { display: flex; align-items: flex-end; gap: 22px; }
+  .wp-sizes figure { margin: 0; text-align: center; }
+  .wp-sizes figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; }
+  .wp-sizes img { display: block; }
+  .wp-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+  .wp-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px;
+  }
+  .wp-list li.recommend { border-color: var(--accent); background: #f2f6ff; }
+  .wp-tag {
+    flex: none; margin-top: 2px; padding: 1px 7px; border-radius: 999px;
+    background: var(--accent); color: #fff; font-size: 11px; line-height: 1.6;
+  }
+  .wp-tag.plain { background: #eef0f3; color: var(--muted); }
+  .wp-swatches { display: flex; flex-wrap: wrap; gap: 12px; }
+  .wp-swatch { width: 108px; }
+  .wp-swatch i { display: block; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,.06); }
+  .wp-swatch b { display: block; margin-top: 6px; font-size: 12px; font-weight: 500; }
+  .wp-swatch small { color: var(--muted); font-size: 11px; }
+  .wp-mock { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  .wp-mock .wp-lockup img { width: 40px; height: 40px; }
+  .wp-idea { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+  .wp-idea-mark { flex: none; width: 152px; text-align: center; }
+  .wp-idea-mark img { display: block; width: 132px; height: 132px; margin: 0 auto; }
+  .wp-idea-mark p { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+  .wp-points { flex: 1 1 340px; margin: 0; padding: 0; list-style: none; counter-reset: wpn; }
+  .wp-points li { position: relative; margin: 0 0 14px; padding-left: 30px; }
+  .wp-points li:last-child { margin-bottom: 0; }
+  .wp-points li::before {
+    counter-increment: wpn; content: counter(wpn);
+    position: absolute; left: 0; top: 1px; width: 20px; height: 20px;
+    border-radius: 50%; background: #eaf0ff; color: var(--accent);
+    font-size: 12px; font-weight: 600; line-height: 20px; text-align: center;
+  }
+  .wp-points b { display: block; font-size: 14px; }
+  .wp-points span { display: block; margin-top: 2px; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+  .wp-mock .wp-lockup strong { font-size: 20px; }
+  .wp-slogan { margin: 18px 0 0; padding-top: 16px; border-top: 1px dashed var(--line); color: var(--text); font-size: 14px; }
+  .wp-slogan small { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+  ul.wp-rules { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+  ul.wp-rules li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wp-wrap">
+  <h1>三面 · 品牌预览</h1>
+  <p class="wp-lead">work-persona 职业行为风格测评 ｜ persona.chesterlee.cn ｜ 2026-11-08</p>
+
+  <h2>主标（横版）</h2>
+  <div class="wp-card">
+    <img src="./assets/img/logo.svg" alt="三面 · 看见三种状态下的自己" width="336" height="72">
+  </div>
+
+  <h2>主标（刻度 · 稳）</h2>
+  <div class="wp-card" style="display:flex;justify-content:center;padding:28px">
+    <img src="./assets/img/wordmark-ruler.svg" alt="三面 · 自然 / 工作 / 压力 刻度字标" width="340" height="204">
+  </div>
+  <p style="color:#6b7280;font-size:12px">字标坐在一条细线上，三个等大等距的刻度对应自然 / 工作 / 压力；无渐变、无动效，用于封面、分享图与深色首屏。</p>
+
+  <h2>徽标</h2>
+  <div class="wp-card wp-row">
+    <div class="wp-cell">
+      <img src="./assets/img/logo-mark.svg" alt="三面徽标" width="72" height="72">
+      <p>标准（主色蓝）</p>
+    </div>
+    <div class="wp-cell">
+      <img src="./assets/img/logo-mark-mono.svg" alt="三面徽标单色" width="72" height="72">
+      <p>单色（墨黑，印刷 / 页脚）</p>
+    </div>
+    <div class="wp-cell">
+      <div class="wp-lockup" style="justify-content:center">
+        <img src="./assets/img/logo-mark.svg" alt="三面徽标" width="44" height="44">
+        <span style="text-align:left"><strong style="font-size:20px">三面</strong><span style="margin:0;color:#9ca3af">看见三种状态下的自己</span></span>
+      </div>
+      <p>竖版组合（小空间）</p>
+    </div>
+  </div>
+
+  <h2>徽标设计理念</h2>
+  <div class="wp-card wp-idea">
+    <div class="wp-idea-mark">
+      <img src="./assets/img/logo-mark.svg" alt="三面徽标" width="132" height="132">
+      <p>三面 · 徽标</p>
+    </div>
+    <ol class="wp-points">
+      <li><b>一个徽章，不是一张脸</b><span>不画具体的人，避免性别、年龄、行业暗示——谁都能把自己放进去。</span></li>
+      <li><b>三个点，三种状态</b><span>自然 / 工作 / 压力。三点同样大小，不把任何一种捧成「真我」，也不分高下。</span></li>
+      <li><b>一条线，是位移</b><span>点与点之间连续不断：状态会移动。测评看的是移动的方向与幅度，不是静止的标签。</span></li>
+      <li><b>向上走势，不做审判</b><span>曲线整体上扬，表示「看见」而不是「打分」，避免测出缺点的那种压迫感。</span></li>
+      <li><b>蓝，是冷静不是神秘</b><span>取自工作场景的蓝，避开心理测评常见的紫粉渐变；粗线大点，缩到 16px 仍可辨认。</span></li>
+    </ol>
+  </div>
+
+  <h2>深底</h2>
+  <div class="wp-card wp-dark wp-row">
+    <div class="wp-cell">
+      <img src="./assets/img/logo-mark.svg" alt="三面徽标" width="72" height="72">
+      <p>深色背景直接用标准版</p>
+    </div>
+    <div class="wp-cell">
+      <img src="./assets/img/logo.svg" alt="三面" width="280" height="60" style="filter:brightness(0) invert(1)">
+      <p>反白（整版单色）</p>
+    </div>
+  </div>
+
+  <h2>小尺寸检验</h2>
+  <div class="wp-card">
+    <div class="wp-sizes">
+      <figure><img src="./assets/img/logo-mark.svg" alt="" width="48" height="48"><figcaption>48</figcaption></figure>
+      <figure><img src="./assets/img/logo-mark.svg" alt="" width="32" height="32"><figcaption>32</figcaption></figure>
+      <figure><img src="./assets/img/logo-mark.svg" alt="" width="24" height="24"><figcaption>24</figcaption></figure>
+      <figure><img src="./assets/img/logo-mark.svg" alt="" width="16" height="16"><figcaption>16（标签页）</figcaption></figure>
+    </div>
+  </div>
+
+  <h2>子标题</h2>
+  <div class="wp-card">
+    <ul class="wp-list">
+      <li class="recommend"><span class="wp-tag">已采用</span><span><b>看见三种状态下的自己</b> —— 名字下方的副行；说的是「你能得到什么」。</span></li>
+      <li><span class="wp-tag plain">口径</span><span><b>职业行为风格测评</b> —— 不再做副标题，保留在网页 title、关于页与对外说明里，用来讲清「是什么」。</span></li>
+      <li><span class="wp-tag plain">备选</span><span><b>自然的我 · 工作的我 · 压力下的我</b> —— 直接点出三种状态，略长，适合报告封面。</span></li>
+    </ul>
+  </div>
+
+  <h2>Slogan</h2>
+  <div class="wp-card">
+    <ul class="wp-list">
+      <li class="recommend"><span class="wp-tag">已采用</span><span><b>你不是一个标签，是三种状态。</b><br><small style="color:#6b7280">点明「反贴标签」的立场，放在首屏标题下方。</small></span></li>
+      <li><span class="wp-tag plain">备选</span><span><b>同一个人，三张面孔，一条曲线。</b><br><small style="color:#6b7280">画面感强，适合分享图底部。</small></span></li>
+      <li><span class="wp-tag plain">备选</span><span><b>看清你戴的面具，也看清压力下的你。</b><br><small style="color:#6b7280">更戳人，但语气偏重，适合关于页。</small></span></li>
+    </ul>
+    <p class="wp-slogan">首页组合示例：<b>三面</b> · 看见三种状态下的自己<small>你不是一个标签，是三种状态。</small></p>
+  </div>
+
+  <h2>色板</h2>
+  <div class="wp-card wp-swatches">
+    <div class="wp-swatch"><i style="background:#2f6fed"></i><b>主色 Accent</b><small>#2F6FED</small></div>
+    <div class="wp-swatch"><i style="background:#1f2329"></i><b>正文 Ink</b><small>#1F2329</small></div>
+    <div class="wp-swatch"><i style="background:#6b7280"></i><b>次要 Muted</b><small>#6B7280</small></div>
+    <div class="wp-swatch"><i style="background:#f6f7f9"></i><b>页面底色</b><small>#F6F7F9</small></div>
+    <div class="wp-swatch"><i style="background:#e5e7eb"></i><b>分隔线</b><small>#E5E7EB</small></div>
+  </div>
+
+  <h2>首页落位示意</h2>
+  <div class="wp-mock">
+    <div class="wp-lockup">
+      <img src="./assets/img/logo-mark.svg" alt="三面" width="40" height="40">
+      <div><strong>三面</strong><span>看见三种状态下的自己</span></div>
+    </div>
+    <span style="color:#6b7280;font-size:13px">登录</span>
+  </div>
+  <p style="color:#6b7280;font-size:12px">首页入口图 + 右上角账户位；「职业行为风格测评」放在网页 title 与关于页，不进副标题。</p>
+
+  <h2>使用规范</h2>
+  <div class="wp-card">
+    <ul class="wp-rules">
+      <li>徽标四周留白 ≥ 圆角的一半（16px 版至少留 8px），不贴边。</li>
+      <li>最小尺寸 16px；小于 24px 时只用徽标，不带字。</li>
+      <li>不拉伸、不加描边、不加阴影、不换色；需要单色就用专门的文件。</li>
+      <li>字标固定「三面」两字，不加空格、不写成「三 面」。</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

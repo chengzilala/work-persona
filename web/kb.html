@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2f6fed">
+  <title>参考知识库 · 三面</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/img/logo-mark.svg">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20261110o">
+</head>
+<body>
+  <div class="wp-page">
+    <header class="wp-brand">
+      <a class="wp-brand-link" href="./index.html">
+        <img class="wp-brand-mark" src="./assets/img/logo-mark.svg" alt="">
+        <div class="wp-brand-text">
+          <h1 class="wp-title">参考知识库</h1>
+          <span class="wp-scale" aria-hidden="true"><i></i><i></i><i></i></span>
+          <p class="wp-subtitle">来源都在站内，点开就能读</p>
+        </div>
+      </a>
+      <a class="wp-account" href="./index.html">回到测评</a>
+    </header>
+
+    <main id="wp-kb-view">
+      <section class="wp-kb-intro">
+        <p>报告里每条「参考来源」都指向这里的中文条目：不外跳、不注册，也不用再找链接。</p>
+      </section>
+
+      <div class="wp-kb-toolbar">
+        <button class="wp-btn wp-btn-ghost" id="wp-kb-add" type="button">＋ 加入参考来源</button>
+      </div>
+
+      <form class="wp-kb-form" id="wp-kb-form" hidden>
+        <label class="wp-field">
+          <span>标题（必填）</span>
+          <input id="wp-kb-title" type="text" maxlength="60" placeholder="例：《常人之情绪》中文版">
+        </label>
+        <label class="wp-field">
+          <span>类型</span>
+          <select id="wp-kb-type">
+            <option value="书目">书目</option>
+            <option value="文章" selected>文章</option>
+            <option value="网页">网页</option>
+            <option value="其他">其他</option>
+          </select>
+        </label>
+        <label class="wp-field">
+          <span>出处（作者 / 刊物 / 网站，可不填）</span>
+          <input id="wp-kb-meta" type="text" maxlength="80" placeholder="例：某某 著 · 某出版社 · 2020 年">
+        </label>
+        <label class="wp-field">
+          <span>说明（必填）</span>
+          <textarea id="wp-kb-body" rows="4" maxlength="500" placeholder="用自己的话写清这条来源讲了什么、能说明什么。"></textarea>
+        </label>
+        <p class="wp-kb-form-tip">只存在这台设备上，可随时删除；这里只记文字，不生成外站跳转。</p>
+        <div class="wp-kb-form-actions">
+          <button class="wp-btn wp-btn-primary" id="wp-kb-save" type="submit">保存</button>
+          <button class="wp-btn wp-btn-ghost" id="wp-kb-cancel" type="button">取消</button>
+        </div>
+        <p class="wp-kb-form-error" id="wp-kb-error" hidden></p>
+      </form>
+
+      <div class="wp-kb-list" id="wp-kb-list"></div>
+
+      <p class="wp-kb-footnote" id="wp-kb-note"></p>
+    </main>
+
+    <footer class="wp-footer">
+      <p class="wp-footer-line">
+        © 2026 <a href="https://chesterlee.cn/" target="_blank" rel="noopener">Chester</a> ·
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a> ·
+        <a href="https://beian.mps.gov.cn/#/query/webSearch?code=62052302000062" target="_blank" rel="noopener"><img src="/assets/img/beian-police.png" alt="公安备案" width="16" height="16">甘公网安备62052302000062号</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="./assets/js/content.js?v=20261110q"></script>
+  <script src="./assets/js/kb.js?v=20261110m"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240" role="img" aria-label="三面 · 看见三种状态下的自己">
+  <title>三面 · 看见三种状态下的自己</title>
+  <text x="200" y="116" text-anchor="middle" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="104" font-weight="600" letter-spacing="4" fill="#1F2329">三面</text>
+  <line x1="94" y1="150" x2="306" y2="150" stroke="#D7DBE2" stroke-width="1"/>
+  <g stroke="#2F6FED" stroke-width="1.5">
+    <line x1="129" y1="150" x2="129" y2="158"/>
+    <line x1="200" y1="150" x2="200" y2="158"/>
+    <line x1="271" y1="150" x2="271" y2="158"/>
+  </g>
+  <g font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="13" letter-spacing="2" fill="#6B7280" text-anchor="middle">
+    <text x="129" y="184">自然</text>
+    <text x="200" y="184">工作</text>
+    <text x="271" y="184">压力</text>
+  </g>
+  <text x="200" y="218" text-anchor="middle" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="13" letter-spacing="3" fill="#6B7280">看见三种状态下的自己</text>
+</svg>

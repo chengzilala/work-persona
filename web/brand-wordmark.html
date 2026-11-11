@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三面 · 字标艺术效果</title>
+<link rel="icon" type="image/svg+xml" href="./assets/img/logo-mark.svg">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --ink: #1f2329;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2f6fed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 72px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 20px; }
+  .lead { margin: 0 0 28px; color: var(--muted); font-size: 13px; }
+  h2 { margin: 0 0 4px; font-size: 14px; letter-spacing: .3px; }
+  .card > p { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+  .card {
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .card h2, .card > p { padding: 0 8px; }
+
+  .hero { padding: 0; overflow: hidden; margin-bottom: 28px; }
+  .hero .stage { border: 0; border-radius: 0; }
+  .hero-foot { padding: 16px 20px 18px; border-top: 1px dashed var(--line); }
+  .hero-foot p { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .hero-foot b { color: var(--ink); font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .grid .stage { margin-bottom: 14px; }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 236px;
+    padding: 48px 20px;
+    background: #f8f9fb;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stage-dark {
+    background:
+      linear-gradient(rgba(120, 160, 255, .07) 1px, transparent 1px) 0 0 / 100% 32px,
+      linear-gradient(90deg, rgba(120, 160, 255, .07) 1px, transparent 1px) 0 0 / 32px 100%,
+      #101828;
+  }
+
+  /* 全局字标基础：固定「三面」两字，字距收紧 */
+  .art {
+    position: relative;
+    display: inline-block;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-weight: 700;
+    font-size: clamp(80px, 13vw, 104px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    white-space: nowrap;
+  }
+  .art .base { position: relative; display: block; }
+
+  /* 01 三重曝光：两份错位蓝影 + 一份实墨 */
+  .art-exposure { font-size: clamp(92px, 17vw, 168px); }
+  .art-exposure .ghost,
+  .art-exposure .base { display: block; }
+  .art-exposure .ghost {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;
+    transition: transform .7s cubic-bezier(.2, .7, .2, 1);
+  }
+  .art-exposure .g1 { color: #2f6fed; opacity: .55; transform: translate(-.055em, -.045em); }
+  .art-exposure .g2 { color: #a8c4fa; opacity: .85; transform: translate(.05em, .038em); }
+  .art-exposure .base { color: #141a24; }
+  .art-exposure:hover .g1 { transform: translate(-.09em, -.075em); }
+  .art-exposure:hover .g2 { transform: translate(.085em, .065em); }
+
+  /* 02 渐变重墨：墨黑 → 主蓝 → 亮蓝，缓慢扫光 */
+  .art-gradient .base {
+    background-image: linear-gradient(105deg, #10182b 0%, #2f6fed 36%, #a9c6ff 50%, #2f6fed 64%, #10182b 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: wp-sheen 7s ease-in-out infinite;
+  }
+  @keyframes wp-sheen {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* 03 错位叠印：三块色版没对齐，像印刷重影 */
+  .art-print .plate,
+  .art-print .base { display: block; }
+  .art-print .plate {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;
+  }
+  .art-print .p1 { color: #7cc0ff; transform: translate(-.045em, -.038em); }
+  .art-print .p2 { color: #2f6fed; opacity: .9; transform: translate(.042em, .032em); }
+  .art-print .base { color: #1b2a4a; }
+
+  /* 04 蓝晒线稿：深底只剩笔画骨架 */
+  .art-blueprint .base {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(160, 194, 255, .95);
+    filter: drop-shadow(0 0 16px rgba(47, 111, 237, .55));
+  }
+
+  /* 05 半实半虚：上半截实物，下半截只留线 */
+  .art-split .base { color: var(--ink); clip-path: inset(0 0 52% 0); }
+  .art-split .outline {
+    position: absolute;
+    inset: 0;
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1.4px var(--accent);
+    clip-path: inset(48% 0 0 0);
+  }
+
+  .foot {
+    margin: 30px auto 0;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .foot li { margin: 4px 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .art-gradient .base { animation: none; }
+    .art-exposure .ghost { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>三面 · 字标艺术效果</h1>
+  <p class="lead">同一组字，五种处理 ｜ 只用品牌蓝与墨黑 ｜ 字标固定「三面」两字</p>
+
+  <section class="card hero">
+    <div class="stage">
+      <div class="art art-exposure" role="img" aria-label="三面">
+        <span class="ghost g1" aria-hidden="true">三面</span>
+        <span class="ghost g2" aria-hidden="true">三面</span>
+        <span class="base">三面</span>
+      </div>
+    </div>
+    <div class="hero-foot">
+      <p><b>01 · 三重曝光</b> —— 三种状态叠在同一个名字里：两份错位的蓝，就是自然 / 工作 / 压力。主视觉、开场页用它；鼠标移上去会微微张开。</p>
+    </div>
+  </section>
+
+  <div class="grid">
+    <article class="card">
+      <div class="stage">
+        <div class="art art-gradient"><span class="base">三面</span></div>
+      </div>
+      <h2>02 · 渐变重墨</h2>
+      <p>墨黑压住两端，主蓝从中间流过去，光会来回扫。适合报告封面、分享图标题。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage">
+        <div class="art art-print">
+          <span class="plate p1" aria-hidden="true">三面</span>
+          <span class="plate p2" aria-hidden="true">三面</span>
+          <span class="base">三面</span>
+        </div>
+      </div>
+      <h2>03 · 错位叠印</h2>
+      <p>像三块色版没对齐留下的重影，比 01 更硬、更像印刷品。适合海报、周边。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage stage-dark">
+        <div class="art art-blueprint"><span class="base">三面</span></div>
+      </div>
+      <h2>04 · 蓝晒线稿</h2>
+      <p>深底上只留笔画骨架，像蓝图。适合加载页、深色首屏、页脚水印。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage">
+        <div class="art art-split">
+          <span class="base">三面</span>
+          <span class="outline" aria-hidden="true">三面</span>
+        </div>
+      </div>
+      <h2>05 · 半实半虚</h2>
+      <p>上半截是实的，下半截只剩一条蓝线——「看清一半，另一半还要测」。适合过渡页。</p>
+    </article>
+  </div>
+
+  <ul class="foot">
+    <li>字标固定两个字，不加空格、不拆成「三 面」；缩放时整组等比，不单独拉伸。</li>
+    <li>02 的扫光是唯一动效，6～8 秒一个来回即可，不做闪烁。</li>
+    <li>除以上蓝与墨黑，不再引入第三种色相。</li>
+  </ul>
+</div>
+</body>
+</html>

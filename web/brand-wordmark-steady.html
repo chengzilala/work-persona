@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三面 · 字标（稳）</title>
+<link rel="icon" type="image/svg+xml" href="./assets/img/logo-mark.svg">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --ink: #1f2329;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --accent: #2f6fed;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 72px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.7 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 20px; }
+  .lead { margin: 0 0 28px; color: var(--muted); font-size: 13px; }
+  .lead a { color: var(--accent); text-decoration: none; }
+  h2 { margin: 0 0 4px; font-size: 14px; letter-spacing: .3px; }
+  .card > p { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+  .card {
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .card h2, .card > p { padding: 0 8px; }
+
+  .hero { padding: 0; overflow: hidden; margin-bottom: 28px; }
+  .hero .hero-stage { padding: 84px 24px 76px; }
+  .hero-foot { padding: 16px 20px 18px; border-top: 1px dashed var(--line); }
+  .hero-foot p { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .hero-foot b { color: var(--ink); font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .grid .stage { margin-bottom: 14px; }
+
+  .stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 236px;
+    padding: 44px 20px;
+    background: #f8f9fb;
+    border-radius: 12px;
+  }
+  .stage-dark { background: #171a1f; }
+
+  /* 字标基础：固定「三面」两字，不用渐变、不用阴影 */
+  .word {
+    display: block;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+
+  /* 主推：字标坐在一条刻度线上，三个等大刻度对应三种状态 */
+  .hero-stage { display: flex; flex-direction: column; align-items: center; }
+  .eyebrow {
+    margin: 0 0 34px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-indent: .3em;
+  }
+  .art-ruler { display: inline-block; font-size: clamp(96px, 15vw, 148px); }
+  .art-ruler .word { font-size: 1em; letter-spacing: .04em; }
+
+  .scale {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 26px;
+    border-top: 1px solid #d7dbe2;
+  }
+  .scale i {
+    width: 1px;
+    height: 7px;
+    margin: 0 auto 9px;
+    background: var(--accent);
+  }
+  .scale span {
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-indent: .2em;
+    text-align: center;
+  }
+  .hero-stage .hero-sub {
+    margin: 30px 0 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    letter-spacing: .16em;
+    text-indent: .16em;
+  }
+
+  /* 压边：上细下粗两条线把字标夹住 */
+  .art-edged {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 34px 18px;
+    border-top: 1px solid var(--ink);
+    border-bottom: 2px solid var(--accent);
+  }
+  .art-edged .en {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .34em;
+    text-indent: .34em;
+  }
+  .art-edged .word { font-size: 62px; letter-spacing: .1em; }
+
+  /* 基线：一条蓝线从字底穿过，向右多走一点 */
+  .art-horizon { position: relative; padding: 16px 26px; }
+  .art-horizon .word { position: relative; font-size: 66px; }
+  .art-horizon .line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 27%;
+    height: 1px;
+    background: var(--accent);
+    opacity: .8;
+  }
+  .art-horizon .dot {
+    position: absolute;
+    right: -2px;
+    bottom: calc(27% - 2.5px);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* 深底：反白细字，只留一根短蓝线 */
+  .art-inverse { display: inline-flex; flex-direction: column; align-items: center; }
+  .art-inverse .word { color: #eef1f6; font-weight: 500; font-size: 58px; letter-spacing: .08em; }
+  .art-inverse .tick { width: 26px; height: 1px; margin: 20px 0 16px; background: var(--accent); }
+  .art-inverse .sub {
+    color: #98a2b3;
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-indent: .16em;
+  }
+
+  /* 留白：字缩到很小，靠空间撑住 */
+  .art-quiet {
+    padding: 34px 46px 30px;
+    text-align: center;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .art-quiet .word { font-size: 30px; font-weight: 500; letter-spacing: .2em; text-indent: .2em; }
+  .art-quiet .sub {
+    display: block;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 10.5px;
+    letter-spacing: .16em;
+    text-indent: .16em;
+  }
+
+  .foot {
+    margin: 30px auto 0;
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .foot li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>三面 · 字标（稳）</h1>
+  <p class="lead">稳重版：拿掉渐变、辉光和动效，只留墨色、细线与留白。上一版更外放的五种效果在 <a href="./brand-wordmark.html">brand-wordmark.html</a>。</p>
+
+  <section class="card hero">
+    <div class="stage stage-hero">
+      <p class="eyebrow">职业行为风格测评</p>
+      <div class="art-ruler" role="img" aria-label="三面">
+        <span class="word">三面</span>
+        <div class="scale">
+          <i></i><i></i><i></i>
+          <span>自然</span><span>工作</span><span>压力</span>
+        </div>
+      </div>
+      <p class="hero-sub">看见三种状态下的自己</p>
+    </div>
+    <div class="hero-foot">
+      <p><b>主推 · 刻度</b> —— 字标坐在一条细线上，三个刻度等大、等距，对应自然 / 工作 / 压力：是「看见」，不是「打分」。</p>
+    </div>
+  </section>
+
+  <div class="grid">
+    <article class="card">
+      <div class="stage">
+        <div class="art-edged">
+          <span class="en">WORK PERSONA</span>
+          <span class="word">三面</span>
+        </div>
+      </div>
+      <h2>压边</h2>
+      <p>上细下粗两条线把字夹住，蓝只出现一次。像报告封面，也像名片。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage">
+        <div class="art-horizon">
+          <span class="line" aria-hidden="true"></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="word">三面</span>
+        </div>
+      </div>
+      <h2>基线</h2>
+      <p>一条蓝线从字底穿过、向右多走一点，留一颗点；安静，但视线会顺着走。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage stage-dark">
+        <div class="art-inverse">
+          <span class="word">三面</span>
+          <span class="tick" aria-hidden="true"></span>
+          <span class="sub">看见三种状态下的自己</span>
+        </div>
+      </div>
+      <h2>深底</h2>
+      <p>反白细字降一档字重，只用一根短线收尾；适合深色首屏与页脚。</p>
+    </article>
+
+    <article class="card">
+      <div class="stage">
+        <div class="art-quiet">
+          <span class="word">三面</span>
+          <span class="sub">看见三种状态下的自己</span>
+        </div>
+      </div>
+      <h2>留白</h2>
+      <p>字缩到很小，靠四周空间撑气场；适合页眉、信封、加载页。</p>
+    </article>
+  </div>
+
+  <ul class="foot">
+    <li>这一版全程静态：无渐变、无发光、无动效，蓝色只做一根线、一颗点、一条边。</li>
+    <li>字标固定「三面」两字，不加空格；三个刻度等大，不暗示先后与高低。</li>
+    <li>小尺寸优先用「留白」；要大标题就用「刻度」。</li>
+  </ul>
+</div>
+</body>
+</html>
