@@ -21,7 +21,7 @@
 - **16 型人格已上线**（v0.24，三期首块）：独立页 `web/oejts.html`，32 题 OEJTS 中文版（五点量表、四维得分条、16 型原创文案、代价提示），结果存 `wp_oejts_result`、草稿存 `wp_oejts_draft`，与主测评完全分开并已并入云同步；首页新增入口卡。题目依 CC BY-NC-SA 4.0 使用（Eric Jorgenson，2015），与 MBTI® 无关。
 - **阅读人格与人格档案已上线**（v0.25）：`web/reading.html` 录入阅读人格（粘贴插件结果或手填四组滑杆，存 `wp_reading_result` 并并入云同步）；`web/profile.html` 把三面 / 16 型 / 阅读人格三份结果并排展示，缺哪份给出口，不自动生成跨测评结论。站内不采集微信读书数据。
 - 后续（未做）：S5c 跨设备验收（手机 + 电脑交叉验证历史 / 草稿 / 设置）、按盲测结果校准题库与计分、AI 润色文案（S8）。
-- **代码仓库**（v0.23 首次入库）：[GitHub](https://github.com/chengzilala/work-persona) ｜ [Gitee](https://gitee.com/chengzila/work-persona)，双远程各推一份。
+- **代码仓库**：[GitHub](https://github.com/chengzilala/work-persona) ｜ [Gitee](https://gitee.com/chengzila/work-persona)，双远程各推一份（v0.23 首次入库，v0.25 已推 `main` 并打 tag）。
 - 需求见 [plan/RPD_需求文档.md](plan/RPD_需求文档.md)，可行性见 [Idea/可行性分析_职业人格测评复刻.md](../Idea/可行性分析_职业人格测评复刻.md)。
 
 ## 目录结构
