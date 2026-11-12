@@ -8,7 +8,10 @@
     draft: 'wp_draft',
     history: 'wp_history',
     settings: 'wp_settings',
-    meta: 'wp_sync_meta'
+    meta: 'wp_sync_meta',
+    oejtsDraft: 'wp_oejts_draft',
+    oejtsResult: 'wp_oejts_result',
+    readingResult: 'wp_reading_result'
   };
   const MAX_BYTES = 240 * 1024;
   const HISTORY_LIMIT = 50;
@@ -84,11 +87,20 @@
       settings: { nickname: String(settings.nickname || ''), updatedAt: Number(settings.updatedAt) || 0 },
       draft: draft && draft.answers ? draft : null,
       history: Array.isArray(readJSON(KEYS.history, [])) ? readJSON(KEYS.history, []) : [],
+      oejtsDraft: readJSON(KEYS.oejtsDraft, null),
+      oejtsResult: readJSON(KEYS.oejtsResult, null),
+      readingResult: readJSON(KEYS.readingResult, null),
       updatedAt: 0
     };
   }
 
-  const stamp = (item) => Number(item && (item.updatedAt || item.createdAt)) || 0;
+  // 时间戳：主测评用数字 updatedAt，历史与 16 型结果用 ISO 字符串 createdAt。
+  const stamp = (item) => {
+    if (!item) return 0;
+    const value = item.updatedAt || item.createdAt;
+    const time = typeof value === 'string' ? Date.parse(value) : Number(value);
+    return Number.isFinite(time) ? time : 0;
+  };
 
   function pickNewer(a, b) {
     if (!a) return b;
@@ -118,7 +130,15 @@
       .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       .slice(0, HISTORY_LIMIT);
 
-    return { settings, draft, history, updatedAt: Math.max(Number(l.updatedAt) || 0, Number(r.updatedAt) || 0) };
+    return {
+      settings,
+      draft,
+      history,
+      oejtsDraft: pickNewer(l.oejtsDraft || null, r.oejtsDraft || null),
+      oejtsResult: pickNewer(l.oejtsResult || null, r.oejtsResult || null),
+      readingResult: pickNewer(l.readingResult || null, r.readingResult || null),
+      updatedAt: Math.max(Number(l.updatedAt) || 0, Number(r.updatedAt) || 0)
+    };
   }
 
   function sameProfile(a, b) {
@@ -132,7 +152,10 @@
       String((p.settings && p.settings.nickname) || ''),
       Number(p.settings && p.settings.updatedAt) || 0,
       p.draft || null,
-      ((p.history || []).map((item) => `${item.id}:${stamp(item)}`))
+      ((p.history || []).map((item) => `${item.id}:${stamp(item)}`)),
+      p.oejtsDraft || null,
+      p.oejtsResult || null,
+      p.readingResult || null
     ]);
   }
 
@@ -140,6 +163,9 @@
     writeJSON(KEYS.settings, profile.settings);
     if (profile.draft) writeJSON(KEYS.draft, profile.draft);
     writeJSON(KEYS.history, profile.history);
+    if (profile.oejtsDraft) writeJSON(KEYS.oejtsDraft, profile.oejtsDraft);
+    if (profile.oejtsResult) writeJSON(KEYS.oejtsResult, profile.oejtsResult);
+    if (profile.readingResult) writeJSON(KEYS.readingResult, profile.readingResult);
   }
 
   // ── 状态与 UI ──
@@ -237,6 +263,15 @@
     }
     if (size(next) > MAX_BYTES && next.draft) {
       next = { ...next, draft: null };
+    }
+    if (size(next) > MAX_BYTES && next.oejtsDraft) {
+      next = { ...next, oejtsDraft: null };
+    }
+    if (size(next) > MAX_BYTES && next.oejtsResult) {
+      next = { ...next, oejtsResult: null };
+    }
+    if (size(next) > MAX_BYTES && next.readingResult) {
+      next = { ...next, readingResult: null };
     }
     return next;
   }

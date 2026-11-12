@@ -18,7 +18,9 @@
 - **已上线**：<https://persona.chesterlee.cn>（2026-11-10，腾讯云轻量 + Caddy 自动证书，登录走统一账户中心）。
 - **纸面盲测材料已就绪**（v0.20，v0.23 重新生成）：`test/blind-test/` 下 `form.pdf`（7 页 A4）+ `form.html`（打印卷源文件）+ `answer-key.csv`（计分钥匙）+ `guide.md`（流程与话术）+ `record.csv`（回收表）+ `score-sheet.js`（计分器），由 `node test/blind-test/build-form.js` 从题库生成；**等 3~5 人实答**。
 - **云同步已上线**（v0.22）：`server/wp-sync.js`（零依赖 Node + SQLite，systemd 常驻）+ `web/assets/js/sync.js`；**登录后自动同步**（每台设备首次登录即拉取合并，主动关闭后不再自动开启），数据页可立即同步 / 关闭 / 删除云端档案，首页品牌下方显示同步状态，冲突按 `updatedAt` 与历史 `id` 合并；线上 `https://persona.chesterlee.cn/wp-sync/*` 由 Caddy 反代到本机 8944。
-- 后续（未做）：S5c 跨设备验收（手机 + 电脑交叉验证历史 / 草稿 / 设置）、按盲测结果校准题库与计分。
+- **16 型人格已上线**（v0.24，三期首块）：独立页 `web/oejts.html`，32 题 OEJTS 中文版（五点量表、四维得分条、16 型原创文案、代价提示），结果存 `wp_oejts_result`、草稿存 `wp_oejts_draft`，与主测评完全分开并已并入云同步；首页新增入口卡。题目依 CC BY-NC-SA 4.0 使用（Eric Jorgenson，2015），与 MBTI® 无关。
+- **阅读人格与人格档案已上线**（v0.25）：`web/reading.html` 录入阅读人格（粘贴插件结果或手填四组滑杆，存 `wp_reading_result` 并并入云同步）；`web/profile.html` 把三面 / 16 型 / 阅读人格三份结果并排展示，缺哪份给出口，不自动生成跨测评结论。站内不采集微信读书数据。
+- 后续（未做）：S5c 跨设备验收（手机 + 电脑交叉验证历史 / 草稿 / 设置）、按盲测结果校准题库与计分、AI 润色文案（S8）。
 - **代码仓库**（v0.23 首次入库）：[GitHub](https://github.com/chengzilala/work-persona) ｜ [Gitee](https://gitee.com/chengzila/work-persona)，双远程各推一份。
 - 需求见 [plan/RPD_需求文档.md](plan/RPD_需求文档.md)，可行性见 [Idea/可行性分析_职业人格测评复刻.md](../Idea/可行性分析_职业人格测评复刻.md)。
 
@@ -36,6 +38,9 @@ work-persona/
 ├── inbox/                 # 临时待归类
 └── web/                   # 站点源码（纯静态，无构建）
     ├── index.html         #   测评本体（首页 / 答题 / 报告 / 历史）
+    ├── oejts.html         #   16 型人格（OEJTS 32 题，独立页）
+    ├── reading.html       #   阅读人格录入（粘贴 / 手填）
+    ├── profile.html       #   人格档案（三份结果并排）
     ├── kb.html            #   参考知识库（中文来源条目，可在界面加入来源）
     └── assets/{css,js,img}
 ```
@@ -74,6 +79,7 @@ PORT=8944 DB_FILE=/tmp/wp-sync.db ACCOUNT_CENTER=http://127.0.0.1:8942 node serv
 ## 边界（很重要）
 
 - 只复刻**信息结构与体验**，题目、报告文案全部原创；不使用「甄有才 / BEST / HRforce / MBTI」名号。
+- 16 型人格的 32 道题来自 OEJTS 1.2（Eric Jorgenson，2015），依 **CC BY-NC-SA 4.0** 使用：需署名、非商业、相同方式共享；页面已写明，与 MBTI® 无关。
 - 不写「精准度超 90%」这类无依据表述。
 - 结果只作自我认知与团队沟通参考，**不作为招聘、晋升、淘汰的依据**；页面须写明「不构成心理诊断或医疗建议」。
 - 一期数据只存本机（`localStorage`），提供导出/导入与一键清除。

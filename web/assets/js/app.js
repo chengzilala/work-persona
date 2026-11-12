@@ -241,6 +241,24 @@
         </button>
       </section>
 
+      <a class="wp-card wp-next-card" href="./oejts.html">
+        <span class="wp-next-main">
+          <span class="wp-eyebrow">另一个视角 · 32 题 · 约 5 分钟</span>
+          <span class="wp-next-title">16 型人格（OEJTS）</span>
+          <span class="wp-next-text">不看工作场景，只看你在日常里更自然的那一面。</span>
+        </span>
+        <span class="wp-next-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="wp-card wp-next-card" href="./profile.html">
+        <span class="wp-next-main">
+          <span class="wp-eyebrow">三份结果 · 并排看</span>
+          <span class="wp-next-title">我的人格档案</span>
+          <span class="wp-next-text">三面、16 型、阅读人格放在一页，缺哪份就补哪份。</span>
+        </span>
+        <span class="wp-next-arrow" aria-hidden="true">→</span>
+      </a>
+
       <section class="wp-card">
         <h3 class="wp-section-title">开始前</h3>
         <ul class="wp-about-list">

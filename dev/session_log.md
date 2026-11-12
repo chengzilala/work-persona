@@ -79,3 +79,25 @@
 - **产出物**：`.git/`（首次）、`README.md`（补仓库地址）、`test/blind-test/record-ai-sim-v022.csv`、`test/blind-test/guide.md`、`plan/RPD_需求文档.md`、`dev/session_log.md`。
 - **验证**：GitHub 仓库匿名 200、tag `v0.23` 存在；Gitee 匿名 200、`private:false`；`git remote -v` 显示 1 条 fetch + 2 条 push。
 - **待办与风险**：① 双推靠本机钥匙串凭据，换机器需重配；② `screenshots/` 空目录未入库（git 不跟踪空目录），后续放图再补。
+
+---
+
+## 2026-11-11 会话条目：三期首块 · 16 型人格上线（v0.24）
+
+- **目标**：按「16 型优先」把 OEJTS 32 题做成站内自测——独立页面、本地保存、并入云同步，不碰主测评逻辑。
+- **已做**：① 从 OEJTS 1.2 官方 PDF 逐字核对 32 题与四条计分公式（base 30/12/30/18、阈值 24、百分比 `(得分−8)/32`），并确认许可为 CC BY-NC-SA 4.0（作者 Eric Jorgenson，2015）；② 新增 `oejts-questions.js`（32 题中文，字段 `id/dim/sign/left/right`，`left`=1、`right`=5）、`oejts-score.js`（纯函数，未答完不出字母）、`oejts-content.js`（16 型名与摘要/代价 + 四维说明，全部原创）、`oejts-app.js`（首页 / 答题 / 结果三态）；③ 新增 `web/oejts.html`（含登录入口与同步脚本），`style.css` 追加 `.wp-next-*` 与 `.wp-oe-*` 两段样式；④ 首页 `app.js` 加入口卡；⑤ `sync.js` 档案扩 `oejtsDraft` / `oejtsResult`，并把 `stamp()` 改为兼容 ISO `createdAt`（顺带修正历史「同 id 取较新」此前恒取第一条的问题）；⑥ `content.js` 升 v0.24 并在 about 里提到 16 型；⑦ 首页缓存串 `?v=20261111b`，`content.js` / `app.js` / `sync.js` / `style.css` 同步换版本；⑧ 部署 10 个文件到线上。
+- **结论与决定**：16 型独立成页、不并进 SPA（旧代码不改，新功能写新模块）；题库忠实保留官方左右端与符号，只重写中文措辞，不重排题目顺序；只做「最近一次结果」，不做 16 型历史列表与分享图（避免一期铺太开）。
+- **产出物**：`web/oejts.html`、`web/assets/js/{oejts-questions,oejts-score,oejts-content,oejts-app}.js`、`web/assets/js/{app,content,sync}.js`、`web/index.html`、`web/assets/css/style.css`、`plan/RPD_需求文档.md`（§3.14 + S7）、`README.md`、`usage/Running.md`、`dev/session_log.md`。
+- **验证**：计分断言 70 项全 PASS（含 8 组「纯一极」必落端点 8/40、组合代码 INTJ/ESFP/ISFJ/ENTP、全 3 必 50%、未答完与非法值）；页面流程 25 项全 PASS（最小 DOM 桩跑完 32 题 → INFP、四条维度条、结果落盘、续答跳第 4 题）；同步合并 7 项全 PASS；线上 `/oejts.html` 200、题库 32 条、文案 16 型、`sync.js` 含 `wp_oejts`、首页脚本 `20261111b`、`content.js` 为 `v0.24`。
+- **待办与风险**：① 16 型尚无真人样本，也未做重测稳定性检查；② 结果页只展示最近一次，跨设备对比需要后续补历史；③ `oejts-content.js` 的 16 型文案刚起草，等真实用户反馈后再打磨；④ 阅读人格（手填 / 粘贴导入）与「同一份人格档案」合并页仍未开工。
+
+---
+
+## 2026-11-12 会话条目：阅读人格录入 + 人格档案合并页（v0.25）
+
+- **目标**：按用户选定的「站内手填 / 粘贴导入」，把阅读人格做进站内，并把三面、16 型、阅读人格三份结果并排成一个档案页；不接微信读书接口、不采集阅读数据。
+- **已做**：① 新增 `reading-content.js`（四维 D/B、F/M、L/E、P/R + 16 型主称号与一句定调，全部原创）；② 新增 `web/reading.html` 与 `reading.js`：粘贴导入（先按 JSON 找 `code`，再用正则找四位代码，能认出「深潜 78%」就存百分比）、手填四组滑杆（左极 D/F/L/P）、按位校验（第 3 位只能是 L/E）、结果卡（代码 / 主称号 / 定调 / 四维条）、重新录入沿用上次方式并带回数值；③ 新增 `web/profile.html` 与 `profile.js`：「已完成 N/3」+ 三块并排（三面最近一次类型与三状态主维 / 16 型四维 / 阅读人格四维），缺哪块给入口，不自动串结论；④ `sync.js` 档案扩 `readingResult`（`wp_reading_result`，按时间取较新，容量降级顺序排最后）；⑤ 首页 `app.js` 加「我的人格档案」入口卡；⑥ `content.js` 升 v0.25 并补 intro / howto；⑦ `style.css` 追加 `.wp-read-*` 与 `.wp-arch-*`；⑧ 首页与 oejts 页缓存串统一 `20261112a`。
+- **结论与决定**：阅读人格只做「录入 + 展示 + 同步」，不算分、不读阅读记录；档案页只并列不给合并结论（沿用 §3.14.5 口径）；结果页不做「清除」——合并规则下本地清空会被云端旧记录按时间取回，清空统一走「数据与隐私」的一键清除。
+- **产出物**：`web/reading.html`、`web/profile.html`、`web/assets/js/{reading-content,reading,profile}.js`、`web/assets/js/{app,content,sync}.js`、`web/index.html`、`web/oejts.html`、`web/assets/css/style.css`、`plan/RPD_需求文档.md`（§3.15 + 功能总览 + S7）、`README.md`、`usage/Running.md`、`dev/session_log.md`。
+- **验证**：`node --check` 6 个改动文件全通过；最小 DOM 桩 32 项全 PASS（首屏粘贴页签 / 手填滑杆联动 / 手填 DMLR / 重新录入带值 / 粘贴 DFLP 含 78% / JSON BMEP / 无效文本与维度位置不符均提示且不覆盖 / 档案页 0-3、3-3、1-3）；本地 `python3 -m http.server 8902` 下 9 个页面与资源均 200。
+- **待办与风险**：① 阅读人格文案（四维左右句、16 型定调）刚落到站内，等真实用户看过再打磨；② 粘贴解析只认四位代码与「深潜 78%」这类写法，插件若改导出格式需要同步调整；③ 档案页不做跨测评结论，用户可能期待「合起来说明什么」，需要时再议；④ v0.24 与 v0.25 均未 git 提交，等用户确认后一并双推。
